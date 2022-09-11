@@ -60,7 +60,7 @@ def movie_post():
 def movie_get():
 
     movie_list = list(db.pracMovie.find({},{'_id':False}))
-
+    print(movie_list)
     return jsonify({'movies': movie_list})
 
 @app.route("/movieDetail", methods=["GET"])
