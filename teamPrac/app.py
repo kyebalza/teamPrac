@@ -52,17 +52,6 @@ def home():
 
 @app.route("/movieReview", methods=["POST"])
 def movie_post():
-    # reviewNums = list(db.review.find({}, {'_id': False}))
-    # reviewNums = list(db.review.find({}, {"reviewNum": 1, "title": 0, "star": 0, "_id": 0}))
-    # print(reviewNums)
-    #
-    # maxNum = 0
-    # if max(reviewNums) is None:
-    #     maxNum += 1
-    # else :
-    #     maxNum += max(reviewNums) + 1
-
-
     title_give = request.form['title_give']
     movie_num_give = int(request.form['movie_num_give'])
     review_give = request.form['review_give']

@@ -151,7 +151,8 @@
                     if(rows2 == 0){
                         review_num += 1
                     }else {
-                        review_num = rows2[rows2.length]['review_num'] + 1
+                        review_num = parseInt(rows2[rows2.length - 1]['review_num']) + 1
+                        console.log(review_num)
                     }
 
                     for (let i = 0; i <rows.length; i++){
