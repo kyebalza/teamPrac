@@ -109,8 +109,8 @@
 
                         let temp_html = `<div class="col">
                                             <div class="card h-100">
-                                                <a href="movieDetail?${movie_num}">
-                                                    <img src="${image}" class="card-img-top" onclick="movieDetail()">
+                                                <a href="movieDetail?movie_num=${movie_num}">
+                                                    <img src="${image}" class="card-img-top">
                                                 </a>
 
                                                 <div class="card-body">
@@ -125,17 +125,21 @@
                 }
             })
         }
-        function movieDetail() {
+/*
+        function movieDetail(movie_num) {
+
+            console.log(movie_num);
+
             $.ajax({
                 type: 'POST',
-                url: '/movieDetail',
+                url: '/movieDetail?movie_num=${num}',
                 data: {sample_give: '데이터전송'},
                 success: function (response) {
                     alert(response['msg'])
                 }
             });
         }
-
+*/
         function posting() {
             $.ajax({
                 type: 'POST',

@@ -13,36 +13,39 @@ db = client.dbsparta
 headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 data = requests.get('https://movie.naver.com/movie/running/current.naver',headers=headers)
 
-soup = BeautifulSoup(data.text, 'html.parser')
-
-trs = soup.select('#content > div.article > div > div.lst_wrap > ul > li')
 
 # 이미지 주소
 #content > div.article > div > div.lst_wrap > ul > li:nth-child(1)
 # 평점 주소
 #content > div.article > div > div.lst_wrap > ul > li > dl > dd.star > dl > dd > div > a > span.num
 
-# i=0
-# for tr in trs:
-#
-#     i=i+1
-#     title = tr.select_one('dl > dt > a').text.strip()
-#     star = tr.select_one('dl > dd.star > dl > dd > div > a > span.num').text[0:1].strip()
-#     image = tr.select_one('div > a > img')['src']
-#     print(i,title, star, image)
-#
-#     doc = {
-#         'movie_num':i,
-#         'title':title,
-#         'star':star,
-#         'image':image
-#     }
-#     db.pracMovie.insert_one(doc)
+
+
 
 
 @app.route('/')
 def home():
-
+    #
+    # soup = BeautifulSoup(data.text, 'html.parser')
+    #
+    # trs = soup.select('#content > div.article > div > div.lst_wrap > ul > li')
+    #
+    # i = 0
+    # for tr in trs:
+    #     i = i + 1
+    #     title = tr.select_one('dl > dt > a').text.strip()
+    #     star = tr.select_one('dl > dd.star > dl > dd > div > a > span.num').text[0:1].strip()
+    #     image = tr.select_one('div > a > img')['src']
+    #     print(i, title, star, image)
+    #
+    #     doc = {
+    #         'movie_num': i,
+    #         'title': title,
+    #         'star': star,
+    #         'image': image
+    #     }
+    #
+    #     db.pracMovie.insert_one(doc)
 
     return render_template('index.html')
 
@@ -60,18 +63,21 @@ def movie_post():
 def movie_get():
 
     movie_list = list(db.pracMovie.find({},{'_id':False}))
-    print(movie_list)
+    #print(movie_list)
     return jsonify({'movies': movie_list})
 
 @app.route("/movieDetail", methods=["GET"])
 def movieDetail_get():
     movie_num = int(request.args['movie_num'])
+    #movie_num = int(request.form.get['movie_num', False])
 
-    print(movie_num)
-
+    #print("Location : movieDetail.html?movie_num="movie_num)
     movie_list = list(db.pracMovie.find({"movie_num" : movie_num},{'_id':False}))
 
-    return render_template('movieDetail.html', movie_list)
+    #print(movie_list)
+
+    #return render_template('movieDetail.html', movie_num)
+    return jsonify({'movie_list': movie_list})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
