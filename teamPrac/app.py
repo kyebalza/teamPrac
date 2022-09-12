@@ -53,7 +53,7 @@ def home():
 @app.route("/movieReview", methods=["POST"])
 def movie_post():
     title_give = request.form['title_give']
-    movie_num_give = request.form['movie_num_give']
+    movie_num_give = int(request.form['movie_num_give'])
     review_give = request.form['review_give']
     star_give = request.form['star_give']
     sample_receive = request.form['sample_give']
@@ -84,9 +84,9 @@ def movieDetail_get():
     movie_list = list(db.pracMovie.find({"movie_num" : movie_num},{'_id':False}))
     review_list = list(db.review.find({"movie_num" : movie_num},{'_id':False}))
     #print(movie_list)
-
+    print(review_list)
     #return render_template('movieDetail.html', movie_num)
-    return jsonify({'movie_list': movie_list}, {'review_list':review_list})
+    return jsonify({'movie_list': movie_list, 'review_list':review_list})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
