@@ -134,6 +134,7 @@
                 data: {movie_num: num},
                 success: function (response) {
                     let rows = response['movie_list']
+
                     for (let i = 0; i <rows.length; i++){
                         let movie_num = rows[i]['movie_num']
                         let title = rows[i]['title']
@@ -176,6 +177,10 @@
 
                         $('.reviewBox').append(temp_html)
                     }
+                    let rows2 = response['review_list']
+                    console.log(rows2)
+
+
                 }
             })
         }
@@ -204,12 +209,15 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/movie',
-                data: {sample_give: '데이터전송'},
+                url: '/movieReview',
+                data: {sample_give: '데이터전송완료', title_give:title, movie_num_give:movie_num,review_give:review,star_give:star},
                 success: function (response) {
-                    alert(response['msg'])
+
+                    //alert(response['msg'])
+                    window.location.reload();
                 }
             });
+
         }
 /*
         function open_box() {
