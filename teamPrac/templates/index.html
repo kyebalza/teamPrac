@@ -109,9 +109,8 @@
 
                         let temp_html = `<div class="col">
                                             <div class="card h-100">
-                                                <a href="movieDetail?movie_num=${movie_num}">
-                                                    <img src="${image}" class="card-img-top">
-                                                </a>
+
+                                                  <img src="${image}" class="card-img-top" onclick="moveDetail(${movie_num})">
 
                                                 <div class="card-body">
                                                     <h5 class="card-title">${title}</h5>
@@ -121,6 +120,42 @@
                                         </div>`
 
                         $('#cards-box').append(temp_html)
+                    }
+                }
+            })
+        }
+
+        function moveDetail(movie_num){
+            let num = movie_num
+            $('.reviewBox').empty()
+            $.ajax({
+                type: 'GET',
+                url: '/movieDetail',
+                data: {movie_num: num},
+                success: function (response) {
+                    let rows = response['movie_list']
+                    for (let i = 0; i <rows.length; i++){
+                        let movie_num = rows[i]['movie_num']
+                        let title = rows[i]['title']
+                        let star = rows[i]['star']
+                        let image = rows[i]['image']
+
+                        let star_image = '⭐'.repeat(star)
+
+                        let temp_html = `<div class="col">
+                                            <div class="card h-100">
+
+                                                    <img src="${image}" class="card-img-top">
+
+
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${title}</h5>
+                                                    <p>${star_image}</p>
+                                                </div>
+                                            </div>
+                                        </div>`
+
+                        $('.reviewBox').append(temp_html)
                     }
                 }
             })
@@ -190,6 +225,9 @@
         <button onclick="posting()" type="button" class="btn btn-dark">기록하기</button>
         <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
     </div>
+</div>
+<div class="reviewBox">
+
 </div>
 <div class="mycards">
     <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
