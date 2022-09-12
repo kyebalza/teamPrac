@@ -71,7 +71,7 @@
             padding: 20px;
             box-shadow: 0px 0px 3px 0px gray;
 
-            display: none;
+            /*display: none;*/
         }
 
         .mybtns {
@@ -142,16 +142,29 @@
 
                         let star_image = '⭐'.repeat(star)
 
-                        let temp_html = `<div class="col">
-                                            <div class="card h-100">
-
-                                                    <img src="${image}" class="card-img-top">
-
-
-                                                <div class="card-body">
-                                                    <h5 class="card-title">${title}</h5>
-                                                    <p>${star_image}</p>
-                                                </div>
+                        let temp_html = `<div class="mypost" id="post-box">
+                                            <div class="form-floating mb-3">
+                                                <input id="url" type="email" class="form-control" placeholder="name@example.com">
+                                                <label>${title}</label>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                                                <select class="form-select" id="star">
+                                                    <option selected>-- 선택하기 --</option>
+                                                    <option value="1">⭐</option>
+                                                    <option value="2">⭐⭐</option>
+                                                    <option value="3">⭐⭐⭐</option>
+                                                    <option value="4">⭐⭐⭐⭐</option>
+                                                    <option value="5">⭐⭐⭐⭐⭐</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-floating">
+                                                <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
+                                                <label for="floatingTextarea2">코멘트</label>
+                                            </div>
+                                            <div class="mybtns">
+                                                <button onclick="posting()" type="button" class="btn btn-dark">등록하기</button>
+                                                <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
                                             </div>
                                         </div>`
 
@@ -185,7 +198,7 @@
                 }
             });
         }
-
+/*
         function open_box() {
             $('#post-box').show()
         }
@@ -193,6 +206,7 @@
         function close_box() {
             $('#post-box').hide()
         }
+*/
     </script>
 </head>
 
@@ -201,31 +215,7 @@
     <h1>내 생애 최고의 영화들</h1>
     <button onclick="open_box()">영화 기록하기</button>
 </div>
-<div class="mypost" id="post-box">
-    <div class="form-floating mb-3">
-        <input id="url" type="email" class="form-control" placeholder="name@example.com">
-        <label>영화URL</label>
-    </div>
-    <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect01">별점</label>
-        <select class="form-select" id="star">
-            <option selected>-- 선택하기 --</option>
-            <option value="1">⭐</option>
-            <option value="2">⭐⭐</option>
-            <option value="3">⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="5">⭐⭐⭐⭐⭐</option>
-        </select>
-    </div>
-    <div class="form-floating">
-        <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
-        <label for="floatingTextarea2">코멘트</label>
-    </div>
-    <div class="mybtns">
-        <button onclick="posting()" type="button" class="btn btn-dark">기록하기</button>
-        <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
-    </div>
-</div>
+
 <div class="reviewBox">
 
 </div>
