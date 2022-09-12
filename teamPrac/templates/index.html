@@ -144,8 +144,9 @@
 
                         let temp_html = `<div class="mypost" id="post-box">
                                             <div class="form-floating mb-3">
-                                                <input id="url" type="email" class="form-control" placeholder="name@example.com">
-                                                <label>${title}</label>
+                                                <input id="title" type="text" class="form-control" value="${title}" readonly>
+                                                <input id="movie_num"type="hidden" value="${movie_num}"/>
+                                                <!-- <label>${title}</label>-->
                                             </div>
                                             <div class="input-group mb-3">
                                                 <label class="input-group-text" for="inputGroupSelect01">별점</label>
@@ -156,15 +157,20 @@
                                                     <option value="3">⭐⭐⭐</option>
                                                     <option value="4">⭐⭐⭐⭐</option>
                                                     <option value="5">⭐⭐⭐⭐⭐</option>
+                                                    <option value="6">⭐⭐⭐⭐⭐⭐</option>
+                                                    <option value="7">⭐⭐⭐⭐⭐⭐⭐</option>
+                                                    <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐</option>
+                                                    <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐</option>
+                                                    <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐</option>
                                                 </select>
                                             </div>
                                             <div class="form-floating">
-                                                <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
-                                                <label for="floatingTextarea2">코멘트</label>
+                                                <textarea id="review" class="form-control" placeholder="Leave a comment here"></textarea>
+                                                <label for="floatingTextarea2">리뷰</label>
                                             </div>
                                             <div class="mybtns">
                                                 <button onclick="posting()" type="button" class="btn btn-dark">등록하기</button>
-                                                <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+                                                <!--<button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>-->
                                             </div>
                                         </div>`
 
@@ -189,6 +195,13 @@
         }
 */
         function posting() {
+            let title = $("#title").val()
+            let movie_num = $("#movie_num").val()
+            let review = $('#review').val()
+            let star = $('#star').val()
+
+            console.log(title + movie_num + review + star)
+
             $.ajax({
                 type: 'POST',
                 url: '/movie',
