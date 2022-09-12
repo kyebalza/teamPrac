@@ -52,17 +52,30 @@ def home():
 
 @app.route("/movieReview", methods=["POST"])
 def movie_post():
+    # reviewNums = list(db.review.find({}, {'_id': False}))
+    # reviewNums = list(db.review.find({}, {"reviewNum": 1, "title": 0, "star": 0, "_id": 0}))
+    # print(reviewNums)
+    #
+    # maxNum = 0
+    # if max(reviewNums) is None:
+    #     maxNum += 1
+    # else :
+    #     maxNum += max(reviewNums) + 1
+
+
     title_give = request.form['title_give']
     movie_num_give = int(request.form['movie_num_give'])
     review_give = request.form['review_give']
     star_give = request.form['star_give']
+    review_num_give = request.form['review_num_give']
     sample_receive = request.form['sample_give']
-    print(title_give, movie_num_give, review_give, star_give)
+    # print(title_give, movie_num_give, review_give, star_give)
     doc = {
         'title' :title_give,
         'movie_num' : movie_num_give,
         'review' : review_give,
-        'star' : star_give
+        'star' : star_give,
+        'review_num' : review_num_give
     }
     db.review.insert_one(doc)
     return jsonify({'msg': 'POST 연결 완료!'})
@@ -85,6 +98,9 @@ def movieDetail_get():
     review_list = list(db.review.find({"movie_num" : movie_num},{'_id':False}))
     #print(movie_list)
     print(review_list)
+    if len(review_list) == 0:
+        review_list = 0
+        print(review_list)
     #return render_template('movieDetail.html', movie_num)
     return jsonify({'movie_list': movie_list, 'review_list':review_list})
 
@@ -93,9 +109,9 @@ def updateReview():
     movie_num = int(request.args['movie_num'])
 
 
-    reviewList = list(db.review.update({'movie_num':movie_num},{'$set':{'':}}))
+    # reviewList = list(db.review.update({'movie_num':movie_num},{'$set':{'':}}))
     #print(movie_list)
-    return jsonify({'revies': reviewList})
+    # return jsonify({'revies': reviewList})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
