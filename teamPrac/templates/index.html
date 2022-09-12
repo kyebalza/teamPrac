@@ -86,6 +86,16 @@
         .mybtns > button {
             margin-right: 10px;
         }
+        .reviewCards {
+            width: 95%;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .reviewCards > .card {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -179,6 +189,28 @@
                     }
                     let rows2 = response['review_list']
                     console.log(rows2)
+                    for (let i = 0; i <rows2.length; i++) {
+                        let movie_num = rows2[i]['movie_num']
+                        let title = rows2[i]['title']
+                        let star = rows2[i]['star']
+                        let review = rows2[i]['review']
+
+                        let star_image = '⭐'.repeat(star)
+
+                        let temp_html = `<div class="card">
+                                            <div class="card-body">
+                                                <blockquote class="blockquote mb-0">
+                                                    <p>${review}</p>
+                                                    <footer class="blockquote-footer">${star_image}</footer>
+                                                    <button onclick="delete_comment()" type="button" class="delete" value="${movie_num}">삭제</button>
+                                                </blockquote>
+                                            </div>
+                                        </div>`
+
+                        $('.reviewCards').append(temp_html)
+
+
+                    }
 
 
                 }
@@ -232,19 +264,22 @@
 </head>
 
 <body>
-<div class="mytitle">
-    <h1>내 생애 최고의 영화들</h1>
-    <button onclick="open_box()">영화 기록하기</button>
-</div>
-
-<div class="reviewBox">
-
-</div>
-<div class="mycards">
-    <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
-
+    <div class="mytitle">
+        <h1>내 생애 최고의 영화들</h1>
+        <button onclick="open_box()">영화 기록하기</button>
     </div>
-</div>
+
+    <div class="reviewBox">
+    </div>
+
+    <div class="reviewCards">
+    </div>
+
+    <div class="mycards">
+        <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
+
+        </div>
+    </div>
 </body>
 
 </html>
