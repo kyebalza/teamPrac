@@ -88,5 +88,14 @@ def movieDetail_get():
     #return render_template('movieDetail.html', movie_num)
     return jsonify({'movie_list': movie_list, 'review_list':review_list})
 
+@app.route("/reviewUpdate", methods=["POST"])
+def updateReview():
+    movie_num = int(request.args['movie_num'])
+
+
+    reviewList = list(db.review.update({'movie_num':movie_num},{'$set':{'':}}))
+    #print(movie_list)
+    return jsonify({'revies': reviewList})
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

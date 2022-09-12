@@ -202,7 +202,8 @@
                                                 <blockquote class="blockquote mb-0">
                                                     <p>${review}</p>
                                                     <footer class="blockquote-footer">${star_image}</footer>
-                                                    <button onclick="delete_comment()" type="button" class="delete" value="${movie_num}">삭제</button>
+                                                    <button onclick="updateReview(${movie_num})" type="button" class="update" value="${movie_num}">수정</button>
+                                                    <button onclick="deleteReview(${movie_num})" type="button" class="delete" value="${movie_num}">삭제</button>
                                                 </blockquote>
                                             </div>
                                         </div>`
@@ -213,6 +214,18 @@
                     }
 
 
+                }
+            })
+        }
+
+        function updateReview(movie_num){
+            let num = movie_num
+            $.ajax({
+                type: 'POST',
+                url: '/reviewUpdate',
+                data: {movie_num: num},
+                success: function (response) {
+                    alert(response['msg'])
                 }
             })
         }
