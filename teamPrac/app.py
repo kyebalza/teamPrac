@@ -105,5 +105,15 @@ def updateReview():
     #print(movie_list)
     return jsonify({'msg': '업데이트 완료!'})
 
+@app.route("/reviewDelete", methods=["POST"])
+def deleteReview():
+    movie_num = int(request.form['movie_num_give'])
+    review_num = int(request.form['review_num_give'])
+
+    db.review.delete_one({'movie_num':movie_num, 'review_num':review_num})
+    #reviewList = list(db.review.update({$and:[{$or:[{'movie_num':movie_num},{'review_num':review_num}]}],},{'$set':{'reivew':reivew}}))
+    #print(movie_list)
+    return jsonify({'msg': '삭제 완료!'})
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

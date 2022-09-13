@@ -252,6 +252,23 @@
                 }
             })
         }
+
+        function deleteReview(movie_num, review_num){
+            let num = movie_num
+            let num2 = review_num
+
+            console.log("movie_num:" + num)
+            console.log("review_num:" + num2)
+
+            $.ajax({
+                type: 'POST',
+                url: '/reviewDelete',
+                data: {movie_num_give: num, review_num_give: num2},
+                success: function (response) {
+                    alert(response['msg'])
+                }
+            })
+        }
 /*
         function movieDetail(movie_num) {
 
