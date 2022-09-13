@@ -173,8 +173,7 @@
                                             <div class="input-group mb-3">
                                                 <label class="input-group-text" for="inputGroupSelect01">별점</label>
                                                 <select class="form-select" id="star">
-                                                    <option selected>-- 선택하기 --</option>
-                                                    <option value="1">⭐</option>
+                                                    <option selected value="1">⭐</option>
                                                     <option value="2">⭐⭐</option>
                                                     <option value="3">⭐⭐⭐</option>
                                                     <option value="4">⭐⭐⭐⭐</option>
@@ -212,11 +211,11 @@
                         let temp_html = `<div class="card">
                                             <div class="card-body">
                                                 <blockquote class="blockquote mb-0">
-                                                    <p id="review">${review}</p>
-                                                    <input type="hidden" id="star" value="${star}">
+                                                    <p>${review}</p>
+                                                    <input class="review2${review_num}" type="hidden" value="${review}">
                                                     <footer class="blockquote-footer">${star_image}</footer>
-                                                    <button onclick="updateReview(${movie_num}, ${review_num})" type="button" class="update" value="${movie_num}">수정</button>
-                                                    <button onclick="deleteReview(${movie_num}, ${review_num})" type="button" class="delete" value="${movie_num}">삭제</button>
+                                                    <button onclick="updateReview(${movie_num}, ${review_num}, ${star})" type="button" class="update" value="${movie_num}">수정</button>
+                                                    <button onclick="deleteReview(${movie_num}, ${review_num}, ${star})" type="button" class="delete" value="${movie_num}">삭제</button>
                                                 </blockquote>
                                             </div>
                                         </div>`
@@ -231,22 +230,27 @@
             })
         }
 
-        function updateReview(movie_num, review_num){
+        function updateReview(movie_num, review_num, star){
             let num = movie_num
             let num2 = review_num
-            let review = $('#review').val()
-            let star = $('#star').val()
+            let num3 = $('.review2'+num2).val()
+            let num4 = star
 
-            console.log(num + num2 + review + star)
 
-            // $.ajax({
-            //     type: 'POST',
-            //     url: '/reviewUpdate',
-            //     data: {movie_num_give: num, review_num_give: num2, review_give: review, star_give: star},
-            //     success: function (response) {
-            //         alert(response['msg'])
-            //     }
-            // })
+
+            console.log("movie_num:" + num)
+            console.log("review_num:" + num2)
+            console.log("review:" + num3)
+            console.log("star:" + num4)
+
+            $.ajax({
+                type: 'POST',
+                url: '/reviewUpdate',
+                data: {movie_num_give: num, review_num_give: num2, review_give: num3, star_give: num4},
+                success: function (response) {
+                    alert(response['msg'])
+                }
+            })
         }
 /*
         function movieDetail(movie_num) {
