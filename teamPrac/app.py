@@ -56,7 +56,7 @@ def movie_post():
     movie_num_give = int(request.form['movie_num_give'])
     review_give = request.form['review_give']
     star_give = request.form['star_give']
-    review_num_give = request.form['review_num_give']
+    review_num_give = int(request.form['review_num_give'])
     sample_receive = request.form['sample_give']
     # print(title_give, movie_num_give, review_give, star_give)
     doc = {
@@ -97,12 +97,13 @@ def movieDetail_get():
 def updateReview():
     movie_num = int(request.form['movie_num_give'])
     review_num = int(request.form['review_num_give'])
-    reivew = request.form['review_give']
+    review = request.form['review_give']
     star = request.form['star_give']
 
-    #reviewList = list(db.review.update({'movie_num':movie_num, 'review_num':review_num},{'$set':{'':}}))
+    db.review.update_one({'movie_num':movie_num, 'review_num':review_num},{'$set':{'review':review}})
+    #reviewList = list(db.review.update({$and:[{$or:[{'movie_num':movie_num},{'review_num':review_num}]}],},{'$set':{'reivew':reivew}}))
     #print(movie_list)
-    # return jsonify({'revies': reviewList})
+    return jsonify({'msg': '업데이트 완료!'})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
