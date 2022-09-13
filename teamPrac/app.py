@@ -95,10 +95,12 @@ def movieDetail_get():
 
 @app.route("/reviewUpdate", methods=["POST"])
 def updateReview():
-    movie_num = int(request.args['movie_num'])
+    movie_num = int(request.form['movie_num_give'])
+    review_num = int(request.form['review_num_give'])
+    reivew = request.form['review_give']
+    star = request.form['star_give']
 
-
-    # reviewList = list(db.review.update({'movie_num':movie_num},{'$set':{'':}}))
+    #reviewList = list(db.review.update({'movie_num':movie_num, 'review_num':review_num},{'$set':{'':}}))
     #print(movie_list)
     # return jsonify({'revies': reviewList})
 

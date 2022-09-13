@@ -205,16 +205,18 @@
                         let title = rows2[i]['title']
                         let star = rows2[i]['star']
                         let review = rows2[i]['review']
+                        let review_num = rows2[i]['review_num']
 
                         let star_image = '⭐'.repeat(star)
 
                         let temp_html = `<div class="card">
                                             <div class="card-body">
                                                 <blockquote class="blockquote mb-0">
-                                                    <p>${review}</p>
+                                                    <p id="review">${review}</p>
+                                                    <input type="hidden" id="star" value="${star}">
                                                     <footer class="blockquote-footer">${star_image}</footer>
-                                                    <button onclick="updateReview(${movie_num})" type="button" class="update" value="${movie_num}">수정</button>
-                                                    <button onclick="deleteReview(${movie_num})" type="button" class="delete" value="${movie_num}">삭제</button>
+                                                    <button onclick="updateReview(${movie_num}, ${review_num})" type="button" class="update" value="${movie_num}">수정</button>
+                                                    <button onclick="deleteReview(${movie_num}, ${review_num})" type="button" class="delete" value="${movie_num}">삭제</button>
                                                 </blockquote>
                                             </div>
                                         </div>`
@@ -229,16 +231,22 @@
             })
         }
 
-        function updateReview(movie_num){
+        function updateReview(movie_num, review_num){
             let num = movie_num
-            $.ajax({
-                type: 'POST',
-                url: '/reviewUpdate',
-                data: {movie_num: num},
-                success: function (response) {
-                    alert(response['msg'])
-                }
-            })
+            let num2 = review_num
+            let review = $('#review').val()
+            let star = $('#star').val()
+
+            console.log(num + num2 + review + star)
+
+            // $.ajax({
+            //     type: 'POST',
+            //     url: '/reviewUpdate',
+            //     data: {movie_num_give: num, review_num_give: num2, review_give: review, star_give: star},
+            //     success: function (response) {
+            //         alert(response['msg'])
+            //     }
+            // })
         }
 /*
         function movieDetail(movie_num) {
